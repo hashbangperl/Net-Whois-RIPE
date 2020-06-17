@@ -240,8 +240,8 @@ sub new {
             $attribute = 'response';
             $value     = $1;
 
-        } elsif ( $line =~ /^(\S+):\s*(.*)/ ) {
-
+        } elsif ( $line =~ /^\s*(\S+\s?\S*):\s*(.*)/ ) {
+            # attribute isn't matching, so get empty block, but still wouldn't match class anyway, ought to fall back if unrecognised class
             # Attribute line
             $attribute = $1;
             $value     = $2;
@@ -263,6 +263,7 @@ sub new {
 
             # Blank line
             if ($object) {
+                
                 $object = _object_factory( $object->{block}, $object->{value}, $object );
                 push @results, $object;
                 $attribute = undef;
